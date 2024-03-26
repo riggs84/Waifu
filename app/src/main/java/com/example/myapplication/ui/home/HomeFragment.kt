@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -17,6 +18,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?): View {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.homeRecyclerView.apply {
+            adapter = Adapter()
+            layoutManager = GridLayoutManager(activity, 2)
+        }
+
         return binding.root
     }
 }
