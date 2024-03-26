@@ -25,7 +25,7 @@ class Adapter(private val clickListener: IClickListener) : RecyclerView.Adapter<
 
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<Item>) {
-         itemList = items
+        itemList = items
         notifyDataSetChanged()
     }
 }

@@ -22,7 +22,7 @@ class HomeFragment : Fragment(), IClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeRecyclerView.apply {
             adapter = rvAdapter
-            layoutManager = GridLayoutManager(activity, 2)
+            layoutManager = GridLayoutManager(activity, 3)
         }
 
         return binding.root
