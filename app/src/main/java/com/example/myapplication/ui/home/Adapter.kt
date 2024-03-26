@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.ui.Item
 
-class Adapter : RecyclerView.Adapter<ViewHolder>() {
+class Adapter(private val clickListener: IClickListener) : RecyclerView.Adapter<ViewHolder>() {
 
     private var itemList: List<Item> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
-        return ViewHolder(view, parent.context)
+        return ViewHolder(view, parent.context, clickListener)
     }
 
     override fun getItemCount(): Int {
@@ -20,7 +20,7 @@ class Adapter : RecyclerView.Adapter<ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(itemList.get(position))
+        holder.bind(itemList[position])
     }
 
     @SuppressLint("NotifyDataSetChanged")
