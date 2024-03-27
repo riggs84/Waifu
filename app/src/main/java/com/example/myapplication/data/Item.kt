@@ -1,4 +1,4 @@
-package com.example.myapplication.ui
+package com.example.myapplication.data
 
 data class Item(val id: Int,
                 val url: String,
