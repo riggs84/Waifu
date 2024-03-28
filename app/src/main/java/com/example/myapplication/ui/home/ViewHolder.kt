@@ -22,12 +22,12 @@ class ViewHolder(itemView: View,
     fun bind(item: Item) {
         image.apply {
             load(item.url, imageLoader)
-            clickListener.onItemClicked(item.id)
+            setOnClickListener { clickListener.onItemClicked(item.id) }
         }
 
         isFavorite.apply {
             setImageResource(item.icon)
-            clickListener.onItemSelected(item.id)
+            setOnClickListener { clickListener.onItemSelected(item.id) }
         }
 
     }

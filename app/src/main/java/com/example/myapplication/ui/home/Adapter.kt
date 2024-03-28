@@ -1,13 +1,13 @@
 package com.example.myapplication.ui.home
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.example.myapplication.R
 import com.example.myapplication.data.Item
 
-class Adapter(private val clickListener: IClickListener) : RecyclerView.Adapter<ViewHolder>() {
+class Adapter(private val clickListener: IClickListener) : ListAdapter<Item, ViewHolder>(MyDiffCallback()) {
 
     private var itemList: List<Item> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -15,17 +15,17 @@ class Adapter(private val clickListener: IClickListener) : RecyclerView.Adapter<
         return ViewHolder(view, parent.context, clickListener)
     }
 
-    override fun getItemCount(): Int {
-        return itemList.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(itemList[position])
     }
+}
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Item>) {
-        itemList = items
-        notifyDataSetChanged()
+private class MyDiffCallback : DiffUtil.ItemCallback<Item>() {
+    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+        return oldItem == newItem
     }
 }

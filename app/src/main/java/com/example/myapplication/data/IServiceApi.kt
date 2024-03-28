@@ -4,6 +4,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface IServiceApi {
-    @POST("sfw/{category}")
+    @POST("many/sfw/{category}")
     suspend fun getWaifuData(@Path("category") category: String): List<Item>
 }
