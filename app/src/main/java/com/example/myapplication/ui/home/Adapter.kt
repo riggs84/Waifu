@@ -8,15 +8,13 @@ import com.example.myapplication.R
 import com.example.myapplication.data.Item
 
 class Adapter(private val clickListener: IClickListener) : ListAdapter<Item, ViewHolder>(MyDiffCallback()) {
-
-    private var itemList: List<Item> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
         return ViewHolder(view, parent.context, clickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(itemList[position])
+        holder.bind(getItem(position))
     }
 }
 
