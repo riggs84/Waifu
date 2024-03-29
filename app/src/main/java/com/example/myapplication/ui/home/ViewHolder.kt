@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.load
 import com.example.myapplication.R
-import com.example.myapplication.ui.Item
+import com.example.myapplication.data.Item
 
 
 class ViewHolder(itemView: View,
@@ -22,12 +22,12 @@ class ViewHolder(itemView: View,
     fun bind(item: Item) {
         image.apply {
             load(item.url, imageLoader)
-            clickListener.onItemClicked(item.id)
+            setOnClickListener { clickListener.onItemClicked(item.id) }
         }
 
         isFavorite.apply {
             setImageResource(item.icon)
-            clickListener.onItemSelected(item.id)
+            setOnClickListener { clickListener.onItemSelected(item.id) }
         }
 
     }
