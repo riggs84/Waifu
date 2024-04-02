@@ -1,17 +1,13 @@
 package com.example.myapplication.di
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.remote.IServiceApi
 import com.example.myapplication.data.repository.WaifuRepositoryImpl
 import com.example.myapplication.domain.repository.IWaifuRepository
 import com.example.myapplication.ui.home.HomeFragment
-import com.example.myapplication.ui.home.HomeViewModel
 import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
