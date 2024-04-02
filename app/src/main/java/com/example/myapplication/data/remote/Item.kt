@@ -1,4 +1,4 @@
-package com.example.myapplication.data
+package com.example.myapplication.data.remote
 
 data class Item(val id: Int,
                 val url: String,

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.load
 import com.example.myapplication.R
-import com.example.myapplication.data.Item
+import com.example.myapplication.data.remote.Item
 
 
 class ViewHolder(itemView: View,

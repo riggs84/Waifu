@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.databinding.FragmentHomeBinding
+import javax.inject.Inject
 
 class HomeFragment : Fragment(), IClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val rvAdapter by lazy { Adapter(this) }
+    private val viewModel by viewModels<HomeViewModel> { viewModelFactory }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater,

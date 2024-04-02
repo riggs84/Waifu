@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.myapplication.R
-import com.example.myapplication.data.Item
+import com.example.myapplication.data.remote.Item
 
 class Adapter(private val clickListener: IClickListener) : ListAdapter<Item, ViewHolder>(MyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
