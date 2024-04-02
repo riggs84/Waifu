@@ -10,7 +10,6 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Component(modules = [ApiModule::class, ViewModelModule::class])
 interface AppComponent {
@@ -21,7 +20,6 @@ interface AppComponent {
 class ApiModule {
 
     @Provides
-    @Singleton
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.waifu.pics/")
@@ -30,13 +28,11 @@ class ApiModule {
     }
 
     @Provides
-    @Singleton
     fun getApiService(retrofit: Retrofit): IServiceApi {
         return retrofit.create(IServiceApi::class.java)
     }
 
     @Provides
-    @Singleton
     fun getWaifuRepository(api: IServiceApi): WaifuRepositoryImpl {
         return WaifuRepositoryImpl(api)
     }
