@@ -5,14 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 
-class ViewModelFactory @Inject constructor(
-    private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
+class ViewModelFactory<T : ViewModel> @Inject constructor(
+     private val provider: Provider<T>
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        val creator = creators[modelClass] ?: creators.entries.firstOrNull()
-
-            ?.value ?: throw IllegalArgumentException("unknown model class $modelClass")
-        return creator.get() as T
+        return provider.get() as T
     }
 }

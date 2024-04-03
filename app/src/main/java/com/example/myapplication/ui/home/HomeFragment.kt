@@ -6,31 +6,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.myapplication.App
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.di.ViewModelFactory
 import javax.inject.Inject
 
 class HomeFragment : Fragment(), IClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val rvAdapter by lazy { Adapter(this) }
-    private val viewModel by viewModels<HomeViewModel> { viewModelFactory }
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var vmFactory: ViewModelFactory<HomeViewModel>
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity(), vmFactory)[HomeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
+        (requireActivity().application as App).appComponent.inject(this)
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeRecyclerView.apply {
             adapter = rvAdapter
             layoutManager = GridLayoutManager(activity, 3)
         }
+
 
         return binding.root
     }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.load
 import com.example.myapplication.R
-import com.example.myapplication.data.remote.Item
+import com.example.myapplication.data.remote.ItemDto
 
 
 class ViewHolder(itemView: View,
@@ -19,7 +19,7 @@ class ViewHolder(itemView: View,
     private val image: ImageView by lazy { itemView.findViewById(R.id.imageView) }
     private val isFavorite: ImageView by lazy { itemView.findViewById(R.id.imageViewLike) }
 
-    fun bind(item: Item) {
+    fun bind(item: ItemDto) {
         image.apply {
             load(item.url, imageLoader)
             setOnClickListener { clickListener.onItemClicked(item.id) }
