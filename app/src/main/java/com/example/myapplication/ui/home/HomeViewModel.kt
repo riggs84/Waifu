@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val repository: IWaifuRepository) : ViewModel() {
 
-    private val _viewState = MutableLiveData<DataResult>()
-    val viewState: LiveData<DataResult> = _viewState
+    private val _viewState = MutableLiveData<ViewState>()
+    val viewState: LiveData<ViewState> = _viewState
 
     init {
         getData()
@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(private val repository: IWaifuRepository
     private fun getData() {
         viewModelScope.launch(Dispatchers.Main) {
             try {
-                _viewState.value = DataResult.Loading
+                _viewState.value = ViewState.Loading
                 val response = withContext(Dispatchers.IO) {
                     repository.getWaifuData()
                 }
@@ -35,14 +35,14 @@ class HomeViewModel @Inject constructor(private val repository: IWaifuRepository
 
                 //_viewState.value = DataResult.Success()
             } catch (e: Exception) {
-                _viewState.postValue(DataResult.Error(e.message ?: "Error happen: ${e.stackTrace}"))
+                _viewState.postValue(ViewState.Error(e.message ?: "Error happen: ${e.stackTrace}"))
             }
         }
     }
 }
 
-sealed class DataResult {
-    data class Success(val data: List<ItemDto>) : DataResult()
-    data class Error(val errMsg: String) : DataResult()
-    data object Loading : DataResult()
+sealed class ViewState {
+    data class Success(val data: List<ItemDto>) : ViewState()
+    data class Error(val errMsg: String) : ViewState()
+    data object Loading : ViewState()
 }
