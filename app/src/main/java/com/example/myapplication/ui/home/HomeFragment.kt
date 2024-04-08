@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.transition.Visibility
 import com.example.myapplication.App
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.di.ViewModelFactory
@@ -36,9 +37,40 @@ class HomeFragment : Fragment(), IClickListener {
             adapter = rvAdapter
             layoutManager = GridLayoutManager(activity, 3)
         }
-
+        registerViewStateObserver()
 
         return binding.root
+    }
+
+    private fun registerViewStateObserver() {
+        viewModel.viewState.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataResult.Loading -> {
+                    loadingStateHandler()
+                }
+
+                is DataResult.Error -> {
+                    errorStateHandler(it)
+                }
+
+                is DataResult.Success -> {
+                    rvAdapter.submitList(it.data)
+                }
+            }
+        }
+    }
+
+    private fun loadingStateHandler() {
+        binding.HomeFragmentLoader.visibility = View.VISIBLE
+        binding.homeRecyclerView.visibility = View.INVISIBLE
+    }
+
+    private fun errorStateHandler(err: DataResult) {
+        Toast.makeText(
+            activity,
+            "Error happen: ${(err as DataResult.Error).errMsg}",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onItemClicked(id: Int) {
