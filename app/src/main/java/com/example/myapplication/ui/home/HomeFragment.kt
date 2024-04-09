@@ -36,9 +36,44 @@ class HomeFragment : Fragment(), IClickListener {
             adapter = rvAdapter
             layoutManager = GridLayoutManager(activity, 3)
         }
-
+        registerViewStateObserver()
 
         return binding.root
+    }
+
+    private fun registerViewStateObserver() {
+        viewModel.viewState.observe(viewLifecycleOwner) {
+            when (it) {
+                is ViewState.Loading -> {
+                    loadingStateHandler()
+                }
+
+                is ViewState.Error -> {
+                    errorStateHandler(it)
+                }
+
+                is ViewState.Success -> {
+                    successStateHandler(it)
+                }
+            }
+        }
+    }
+
+    private fun successStateHandler(it: ViewState) {
+        rvAdapter.submitList((it as ViewState.Success).data)
+    }
+
+    private fun loadingStateHandler() {
+        binding.HomeFragmentLoader.visibility = View.VISIBLE
+        binding.homeRecyclerView.visibility = View.INVISIBLE
+    }
+
+    private fun errorStateHandler(err: ViewState) {
+        Toast.makeText(
+            activity,
+            "Error happen: ${(err as ViewState.Error).errMsg}",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onItemClicked(id: Int) {
