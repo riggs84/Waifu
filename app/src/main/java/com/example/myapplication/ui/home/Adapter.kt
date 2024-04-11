@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.myapplication.R
-import com.example.myapplication.data.remote.ItemDto
+import com.example.myapplication.data.db.WaifuEntity
 
-class Adapter(private val clickListener: IClickListener) : ListAdapter<ItemDto, ViewHolder>(MyDiffCallback()) {
+class Adapter(private val clickListener: IClickListener) : ListAdapter<WaifuEntity, ViewHolder>(MyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
         return ViewHolder(view, parent.context, clickListener)
@@ -18,12 +18,12 @@ class Adapter(private val clickListener: IClickListener) : ListAdapter<ItemDto, 
     }
 }
 
-private class MyDiffCallback : DiffUtil.ItemCallback<ItemDto>() {
-    override fun areItemsTheSame(oldItem: ItemDto, newItem: ItemDto): Boolean {
+private class MyDiffCallback : DiffUtil.ItemCallback<WaifuEntity>() {
+    override fun areItemsTheSame(oldItem: WaifuEntity, newItem: WaifuEntity): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: ItemDto, newItem: ItemDto): Boolean {
+    override fun areContentsTheSame(oldItem: WaifuEntity, newItem: WaifuEntity): Boolean {
         return oldItem == newItem
     }
 }

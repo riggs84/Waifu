@@ -76,11 +76,11 @@ class HomeFragment : Fragment(), IClickListener {
         ).show()
     }
 
-    override fun onItemClicked(id: Int) {
+    override fun onItemClicked(id: Long) {
         Toast.makeText(activity, "TODO", Toast.LENGTH_LONG).show()
     }
 
-    override fun onItemSelected(position: Int) {
+    override fun onItemSelected(position: Long) {
         TODO("Not yet implemented")
     }
 }

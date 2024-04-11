@@ -2,7 +2,7 @@ package com.example.myapplication.ui.home
 
 interface IClickListener {
 
-    fun onItemClicked(id: Int)
+    fun onItemClicked(id: Long)
 
-    fun onItemSelected(position: Int)
+    fun onItemSelected(position: Long)
 }

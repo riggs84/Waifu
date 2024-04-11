@@ -3,8 +3,8 @@ package com.example.myapplication.data.repository
 import com.example.myapplication.data.remote.IServiceApi
 import com.example.myapplication.data.remote.WaifuResponse
 import com.example.myapplication.domain.repository.IWaifuRepository
-import okhttp3.MediaType
-import okhttp3.RequestBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ class WaifuRepositoryImpl @Inject constructor(private val api: IServiceApi) : IW
     override suspend fun getWaifuData(): Response<WaifuResponse> {
         return api.getWaifuData(
             "waifu",
-            RequestBody.create(MediaType.parse("application/json; charset=UTF-8"), "{}")
+            "{}".toRequestBody("application/json; charset=UTF-8".toMediaTypeOrNull())
         )
     }
 }

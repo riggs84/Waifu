@@ -16,6 +16,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Place db scheme here
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schema")
+            }
+        }
     }
 
     buildTypes {
@@ -46,13 +53,17 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation("io.coil-kt:coil:1.4.0")
+    implementation("io.coil-kt:coil:2.2.2")
     // DI
     implementation("com.google.dagger:dagger:2.47")
     kapt("com.google.dagger:dagger-compiler:2.47")
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     // testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
