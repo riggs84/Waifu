@@ -13,13 +13,8 @@ class DataBaseModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideDataBase(ctx: Context): IWaifuDao {
-        val database =  Room.databaseBuilder(ctx, WaifuDB::class.java, "waifu-database").build()
+    fun provideDataBase(): IWaifuDao {
+        val database = Room.databaseBuilder(context, WaifuDB::class.java, "waifu-database").build()
         return database.getWaifuDB()
-    }
-
-    @Provides
-    fun providesContext(): Context {
-        return context
     }
 }
