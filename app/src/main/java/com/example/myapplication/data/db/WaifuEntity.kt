@@ -7,7 +7,7 @@ import com.example.myapplication.R
 
 @Entity(tableName = "WAIFU", indices = [Index("url", unique = true)])
 data class WaifuEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = true) var id: Long,
     val url: String,
     val isFavorite: Boolean = false,
     val icon: Int = R.drawable.baseline_favorite_border_empty

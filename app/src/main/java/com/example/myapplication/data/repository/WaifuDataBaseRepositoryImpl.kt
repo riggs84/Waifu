@@ -11,4 +11,12 @@ class WaifuDataBaseRepositoryImpl @Inject constructor(private val dataBase: IWai
     override fun getAll(): Flow<List<WaifuEntity>> {
         return dataBase.getAll()
     }
+
+    override fun insertList(list: List<WaifuEntity>) {
+        dataBase.insertList(list)
+    }
+
+    override fun updateEntry(entry: WaifuEntity) {
+        dataBase.updateEntry(entry)
+    }
 }

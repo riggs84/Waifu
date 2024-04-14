@@ -27,18 +27,28 @@ class HomeViewModel @Inject constructor(
 
     private fun getData() {
         viewModelScope.launch(Dispatchers.Main) {
-            try {
-                mutableViewState.value = ViewState.Loading
+            mutableViewState.value = ViewState.Loading
 
+            try {
                 withContext(Dispatchers.IO) {
                     val networkResponse = networkRepository.getWaifuData()
 
-                    if (!networkResponse.isSuccessful) {
+                    if (!networkResponse.isSuccessful || networkResponse.body() == null) {
                         throw Exception(networkResponse.errorBody().toString())
                     }
-                }
 
-                //_viewState.value = DataResult.Success()
+                    // checking for non null is provided
+                    val list = networkResponse.body()!!.files.map {
+                        WaifuEntity(url = it)
+                    }.toList()
+
+                    dataBaseRepository.insertList(list)
+                }
+                dataBaseRepository.getAll().collect { items ->
+                    run {
+                        mutableViewState.postValue(ViewState.Success(items))
+                    }
+                }
             } catch (e: Exception) {
                 mutableViewState.postValue(
                     ViewState.Error(
