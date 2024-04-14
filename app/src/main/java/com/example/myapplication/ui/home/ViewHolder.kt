@@ -21,7 +21,10 @@ class ViewHolder(itemView: View,
 
     fun bind(item: WaifuEntity) {
         image.apply {
-            load(item.url, imageLoader)
+            load(item.url, imageLoader) {
+                crossfade(true)
+                placeholder(R.drawable.image_placeholder)
+            }
             setOnClickListener { clickListener.onItemClicked(item.id) }
         }
 

@@ -25,8 +25,8 @@ class HomeViewModel @Inject constructor(
         getData()
     }
 
-    fun markAsFavorite(pos: Long) {
-        val entry = (mutableViewState.value as ViewState.Success).data[pos.toInt() - 1]
+    fun markAsFavorite(pos: Int) {
+        val entry = (mutableViewState.value as ViewState.Success).data[pos]
         entry.isFavorite = !entry.isFavorite
         entry.setFavoriteIcon()
         viewModelScope.launch(Dispatchers.IO) {

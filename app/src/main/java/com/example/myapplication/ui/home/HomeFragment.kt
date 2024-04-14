@@ -78,11 +78,14 @@ class HomeFragment : Fragment(), IClickListener {
         ).show()
     }
 
-    override fun onItemClicked(id: Long) {
+    override fun onItemClicked(id: Int) {
         Toast.makeText(activity, "TODO", Toast.LENGTH_LONG).show()
     }
 
-    override fun onItemSelected(position: Long) {
-        viewModel.markAsFavorite(position)
+    override fun onItemSelected(position: Int) {
+        // position in data set
+        val actualPosition = position - 1
+        viewModel.markAsFavorite(actualPosition)
+        rvAdapter.notifyItemChanged(actualPosition)
     }
 }

@@ -6,7 +6,7 @@ import com.example.myapplication.R
 
 @Entity(tableName = "WAIFU")
 data class WaifuEntity(
-    @PrimaryKey(autoGenerate = true) var id: Long = 0,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
     val url: String,
     var isFavorite: Boolean = false,
     var icon: Int = R.drawable.baseline_favorite_border_empty
