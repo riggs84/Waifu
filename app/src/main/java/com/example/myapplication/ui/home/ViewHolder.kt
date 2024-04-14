@@ -29,6 +29,5 @@ class ViewHolder(itemView: View,
             setImageResource(item.icon)
             setOnClickListener { clickListener.onItemSelected(item.id) }
         }
-
     }
 }

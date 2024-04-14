@@ -12,6 +12,6 @@ data class WaifuEntity(
     var icon: Int = R.drawable.baseline_favorite_border_empty
 ) {
     fun setFavoriteIcon() {
-        if (isFavorite) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_empty
+        icon = if (isFavorite) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_empty
     }
 }
