@@ -34,7 +34,7 @@ class HomeFragment : Fragment(), IClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeRecyclerView.apply {
             adapter = rvAdapter
-            layoutManager = GridLayoutManager(activity, 3)
+            layoutManager = GridLayoutManager(activity, 2)
         }
         registerViewStateObserver()
 
@@ -60,6 +60,8 @@ class HomeFragment : Fragment(), IClickListener {
     }
 
     private fun successStateHandler(it: ViewState) {
+        binding.homeRecyclerView.visibility = View.VISIBLE
+        binding.HomeFragmentLoader.visibility = View.INVISIBLE
         rvAdapter.submitList((it as ViewState.Success).data)
     }
 
@@ -81,6 +83,6 @@ class HomeFragment : Fragment(), IClickListener {
     }
 
     override fun onItemSelected(position: Long) {
-        TODO("Not yet implemented")
+        viewModel.markAsFavorite(position)
     }
 }

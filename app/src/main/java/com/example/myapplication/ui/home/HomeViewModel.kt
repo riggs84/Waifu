@@ -25,6 +25,17 @@ class HomeViewModel @Inject constructor(
         getData()
     }
 
+    fun markAsFavorite(pos: Long) {
+        val entry = (mutableViewState.value as ViewState.Success).data[pos.toInt() - 1]
+        entry.isFavorite = true
+        entry.setFavoriteIcon()
+        viewModelScope.launch(Dispatchers.IO) {
+            dataBaseRepository.updateEntry(entry)
+            dataBaseRepository.getAll()
+                .collect { items -> mutableViewState.postValue(ViewState.Success(items)) }
+        }
+    }
+
     private fun getData() {
         viewModelScope.launch(Dispatchers.Main) {
             mutableViewState.value = ViewState.Loading
@@ -44,11 +55,6 @@ class HomeViewModel @Inject constructor(
 
                     dataBaseRepository.insertList(list)
                 }
-                dataBaseRepository.getAll().collect { items ->
-                    run {
-                        mutableViewState.postValue(ViewState.Success(items))
-                    }
-                }
             } catch (e: Exception) {
                 mutableViewState.postValue(
                     ViewState.Error(
@@ -56,6 +62,8 @@ class HomeViewModel @Inject constructor(
                     )
                 )
             }
+            dataBaseRepository.getAll()
+                .collect { items -> mutableViewState.postValue(ViewState.Success(items)) }
         }
     }
 }
