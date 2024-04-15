@@ -47,8 +47,11 @@ class HomeViewModel @Inject constructor(
                 withContext(Dispatchers.IO) {
                     val networkResponse = networkRepository.getWaifuData()
 
-                    if (!networkResponse.isSuccessful || networkResponse.body() == null) {
+                    if (!networkResponse.isSuccessful) {
                         throw Exception(networkResponse.errorBody().toString())
+                    }
+                    if (networkResponse.body() == null) {
+                        throw Exception("network response body is null")
                     }
 
                     // checking for non null is provided
