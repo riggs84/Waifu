@@ -4,39 +4,61 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.databinding.FragmentDashboardBinding
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.App
+import com.example.myapplication.databinding.FragmentFavoritesBinding
+import com.example.myapplication.di.ViewModelFactory
+import com.example.myapplication.ui.common.Adapter
+import com.example.myapplication.ui.common.IClickListener
+import javax.inject.Inject
 
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : Fragment(), IClickListener {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private lateinit var binding: FragmentFavoritesBinding
+    private val rvAdapter by lazy { Adapter(this) }
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    @Inject
+    lateinit var vmFactory: ViewModelFactory<FavoritesViewModel>
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity(), vmFactory)[FavoritesViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-                             ): View {
-        val favoritesViewModel =
-            ViewModelProvider(this).get(FavoritesViewModel::class.java)
+    ): View {
+        (requireActivity().application as App).appComponent.inject(this)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
-        favoritesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        binding.homeRecyclerView.apply {
+            adapter = rvAdapter
+            layoutManager = LinearLayoutManager(activity)
         }
-        return root
+
+        registerObserver()
+
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onItemClicked(id: Int) {
+        Toast.makeText(activity, "TODO", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onItemSelected(position: Int) {
+        val dataPosition = position - 1
+
+        viewModel.markAsFavorite(dataPosition)
+        rvAdapter.notifyItemChanged(dataPosition)
+    }
+
+    private fun registerObserver() {
+        viewModel.viewState.observe(viewLifecycleOwner) {
+            rvAdapter.submitList(it)
+        }
     }
 }

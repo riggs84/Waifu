@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.home
+package com.example.myapplication.ui.common
 
 import android.content.Context
 import android.view.View
@@ -7,21 +7,25 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.load
 import com.example.myapplication.R
-import com.example.myapplication.data.remote.ItemDto
+import com.example.myapplication.data.db.WaifuEntity
 
 
 class ViewHolder(itemView: View,
                  context: Context,
-                 private val clickListener: IClickListener) : RecyclerView.ViewHolder(itemView) {
+                 private val clickListener: IClickListener
+) : RecyclerView.ViewHolder(itemView) {
 
     private val imageLoader: ImageLoader = ImageLoader.Builder(context).build()
 
     private val image: ImageView by lazy { itemView.findViewById(R.id.imageView) }
     private val isFavorite: ImageView by lazy { itemView.findViewById(R.id.imageViewLike) }
 
-    fun bind(item: ItemDto) {
+    fun bind(item: WaifuEntity) {
         image.apply {
-            load(item.url, imageLoader)
+            load(item.url, imageLoader) {
+                crossfade(true)
+                placeholder(R.drawable.image_placeholder)
+            }
             setOnClickListener { clickListener.onItemClicked(item.id) }
         }
 
@@ -29,6 +33,5 @@ class ViewHolder(itemView: View,
             setImageResource(item.icon)
             setOnClickListener { clickListener.onItemSelected(item.id) }
         }
-
     }
 }

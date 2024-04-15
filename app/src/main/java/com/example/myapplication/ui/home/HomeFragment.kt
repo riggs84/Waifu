@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.App
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.di.ViewModelFactory
+import com.example.myapplication.ui.common.Adapter
+import com.example.myapplication.ui.common.IClickListener
 import javax.inject.Inject
 
 class HomeFragment : Fragment(), IClickListener {
@@ -34,7 +36,7 @@ class HomeFragment : Fragment(), IClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeRecyclerView.apply {
             adapter = rvAdapter
-            layoutManager = GridLayoutManager(activity, 3)
+            layoutManager = GridLayoutManager(activity, 2)
         }
         registerViewStateObserver()
 
@@ -60,6 +62,8 @@ class HomeFragment : Fragment(), IClickListener {
     }
 
     private fun successStateHandler(it: ViewState) {
+        binding.homeRecyclerView.visibility = View.VISIBLE
+        binding.HomeFragmentLoader.visibility = View.INVISIBLE
         rvAdapter.submitList((it as ViewState.Success).data)
     }
 
@@ -81,6 +85,9 @@ class HomeFragment : Fragment(), IClickListener {
     }
 
     override fun onItemSelected(position: Int) {
-        TODO("Not yet implemented")
+        // position in data set
+        val actualPosition = position - 1
+        viewModel.markAsFavorite(actualPosition)
+        rvAdapter.notifyItemChanged(actualPosition)
     }
 }
