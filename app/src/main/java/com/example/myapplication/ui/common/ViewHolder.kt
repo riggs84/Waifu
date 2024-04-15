@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.home
+package com.example.myapplication.ui.common
 
 import android.content.Context
 import android.view.View
@@ -12,7 +12,8 @@ import com.example.myapplication.data.db.WaifuEntity
 
 class ViewHolder(itemView: View,
                  context: Context,
-                 private val clickListener: IClickListener) : RecyclerView.ViewHolder(itemView) {
+                 private val clickListener: IClickListener
+) : RecyclerView.ViewHolder(itemView) {
 
     private val imageLoader: ImageLoader = ImageLoader.Builder(context).build()
 

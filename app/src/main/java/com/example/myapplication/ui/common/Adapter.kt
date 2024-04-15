@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.home
+package com.example.myapplication.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,7 +17,6 @@ class Adapter(private val clickListener: IClickListener) : ListAdapter<WaifuEnti
         holder.bind(getItem(position))
     }
 }
-
 private class MyDiffCallback : DiffUtil.ItemCallback<WaifuEntity>() {
     override fun areItemsTheSame(oldItem: WaifuEntity, newItem: WaifuEntity): Boolean {
         return oldItem == newItem

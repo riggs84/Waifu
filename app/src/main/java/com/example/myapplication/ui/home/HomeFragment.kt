@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.App
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.di.ViewModelFactory
+import com.example.myapplication.ui.common.Adapter
+import com.example.myapplication.ui.common.IClickListener
 import javax.inject.Inject
 
 class HomeFragment : Fragment(), IClickListener {

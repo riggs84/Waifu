@@ -7,6 +7,8 @@ interface IWaifuDataBaseRepository {
 
     fun getAll(): Flow<List<WaifuEntity>>
 
+    fun getAllFavorites(): Flow<List<WaifuEntity>>
+
     fun insertList(list: List<WaifuEntity>)
 
     fun updateEntry(entry: WaifuEntity)
