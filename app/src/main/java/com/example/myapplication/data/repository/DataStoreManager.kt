@@ -9,7 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class DataStoreRepository(private val ctx: Context) {
+class DataStoreManager(private val ctx: Context) {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("waifu_data_store")
     private val COLUMNS_COUNT = intPreferencesKey("columns_count")

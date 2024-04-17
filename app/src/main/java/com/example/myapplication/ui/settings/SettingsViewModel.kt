@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.data.repository.DataStoreRepository
+import com.example.myapplication.data.repository.DataStoreManager
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository
+    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
     private val mutableViewState = MutableLiveData<Int>()
@@ -17,7 +17,7 @@ class SettingsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            dataStoreRepository.getColumns().collect {
+            dataStoreManager.getColumns().collect {
                 mutableViewState.postValue(it)
             }
         }
@@ -25,8 +25,8 @@ class SettingsViewModel @Inject constructor(
 
     fun setColumns(columns: Int) {
         viewModelScope.launch {
-            dataStoreRepository.setColumns(columns).also {
-                dataStoreRepository.getColumns().collect {
+            dataStoreManager.setColumns(columns).also {
+                dataStoreManager.getColumns().collect {
                     mutableViewState.postValue(it)
                 }
             }
