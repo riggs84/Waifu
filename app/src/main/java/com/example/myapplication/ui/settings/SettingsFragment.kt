@@ -31,7 +31,7 @@ class SettingsFragment : Fragment() {
         (requireActivity().application as App).appComponent.inject(this)
 
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        binding.menu.setOnClickListener { showDialog() }
+        binding.columnsValue.setOnClickListener { showDialog() }
 
         registerObserver()
         return binding.root
@@ -39,10 +39,23 @@ class SettingsFragment : Fragment() {
 
     private fun showDialog() {
         val columns = arrayOf("2 columns", "3 columns", "4 columns")
+        var checkedItem = when(viewModel.viewState.value) {
+            2 -> 0
+            3 -> 1
+            4 -> 2
+            else -> 2
+        }
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Choose columns for home screen:")
-            .setSingleChoiceItems(columns, 0) { _, _ -> null }
-            .setPositiveButton("OK") { _, which -> viewModel.setColumns(which) }
+            .setSingleChoiceItems(columns, checkedItem) { _, which ->
+                checkedItem = when (which) {
+                    0 -> 2
+                    1 -> 3
+                    2 -> 4
+                    else -> 2
+                }
+            }
+            .setPositiveButton("OK") { _, _ -> viewModel.setColumns(checkedItem) }
             .setNegativeButton("Cancel") { _, _ -> null }
             .show()
     }
