@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.db.WaifuEntity
+import com.example.myapplication.data.repository.DataStoreManager
 import com.example.myapplication.domain.repository.IWaifuDataBaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FavoritesViewModel @Inject constructor(private val dataBase: IWaifuDataBaseRepository) :
-    ViewModel() {
+class FavoritesViewModel @Inject constructor(
+    private val dataBase: IWaifuDataBaseRepository,
+) : ViewModel() {
 
     private val mutableViewState = MutableLiveData<List<WaifuEntity>>()
     val viewState: LiveData<List<WaifuEntity>> = mutableViewState

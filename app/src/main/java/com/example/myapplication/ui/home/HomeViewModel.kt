@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.db.WaifuEntity
+import com.example.myapplication.data.repository.DataStoreManager
 import com.example.myapplication.domain.repository.IWaifuDataBaseRepository
 import com.example.myapplication.domain.repository.IWaifuRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,13 +17,23 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val networkRepository: IWaifuRepository,
     private val dataBaseRepository: IWaifuDataBaseRepository,
+    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
     private val mutableViewState = MutableLiveData<ViewState>()
     val viewState: LiveData<ViewState> = mutableViewState
 
+    private val mutableColumnsCountState = MutableLiveData<Int>()
+    val columnsCountState: LiveData<Int> = mutableColumnsCountState
+
     init {
         getData()
+
+        viewModelScope.launch {
+            dataStoreManager.getColumns().collect {
+                mutableColumnsCountState.value = it
+            }
+        }
     }
 
     fun markAsFavorite(pos: Int) {

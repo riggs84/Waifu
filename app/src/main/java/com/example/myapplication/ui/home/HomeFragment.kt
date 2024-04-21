@@ -33,10 +33,12 @@ class HomeFragment : Fragment(), IClickListener {
     ): View {
         (requireActivity().application as App).appComponent.inject(this)
 
+
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeRecyclerView.apply {
             adapter = rvAdapter
-            layoutManager = GridLayoutManager(activity, 2)
+            layoutManager = GridLayoutManager(activity, viewModel.columnsCountState.value ?: 2)
         }
         registerViewStateObserver()
 
