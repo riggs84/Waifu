@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val networkRepository: IWaifuRepository,
-    private val dataBaseRepository: IWaifuDataBaseRepository
+    private val dataBaseRepository: IWaifuDataBaseRepository,
 ) : ViewModel() {
 
     private val mutableViewState = MutableLiveData<ViewState>()

@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.map
 
 class DataStoreManager(private val ctx: Context) {
 
+    private val defaultColumnsValue = 2
+
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("waifu_data_store")
     private val COLUMNS_COUNT = intPreferencesKey("columns_count")
 
@@ -20,7 +22,7 @@ class DataStoreManager(private val ctx: Context) {
 
     fun getColumns(): Flow<Int> {
         return ctx.dataStore.data.map {
-            it[COLUMNS_COUNT] ?: 2
+            it[COLUMNS_COUNT] ?: defaultColumnsValue
         }
     }
 }

@@ -25,11 +25,7 @@ class SettingsViewModel @Inject constructor(
 
     fun setColumns(columns: Int) {
         viewModelScope.launch {
-            dataStoreManager.setColumns(columns).also {
-                dataStoreManager.getColumns().collect {
-                    mutableViewState.postValue(it)
-                }
-            }
+            dataStoreManager.setColumns(columns)
         }
     }
 }
