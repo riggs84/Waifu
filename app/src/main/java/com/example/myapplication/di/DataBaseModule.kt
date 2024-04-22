@@ -1,27 +1,29 @@
 package com.example.myapplication.di
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
 import com.example.myapplication.data.db.IWaifuDao
 import com.example.myapplication.data.db.WaifuDB
 import com.example.myapplication.data.repository.WaifuDataBaseRepositoryImpl
 import com.example.myapplication.domain.repository.IWaifuDataBaseRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
-class DataBaseModule(private val context: Context) {
+@Module(includes = [DataBaseBinds::class])
+class DataBaseModule {
 
     @Provides
     @Singleton
-    fun provideDataBase(): IWaifuDao {
-        val database = Room.databaseBuilder(context, WaifuDB::class.java, "waifu-database").build()
+    fun provideDataBase(ctx: Application): IWaifuDao {
+        val database = Room.databaseBuilder(ctx, WaifuDB::class.java, "waifu-database").build()
         return database.getWaifuDB()
     }
+}
 
-    @Provides
-    fun providesDataBaseRepository(db: IWaifuDao): IWaifuDataBaseRepository {
-        return WaifuDataBaseRepositoryImpl(db)
-    }
+@Module
+interface DataBaseBinds {
+    @Binds
+    fun binds(imp: WaifuDataBaseRepositoryImpl): IWaifuDataBaseRepository
 }

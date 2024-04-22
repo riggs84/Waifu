@@ -3,8 +3,6 @@ package com.example.myapplication
 import android.app.Application
 import com.example.myapplication.di.AppComponent
 import com.example.myapplication.di.DaggerAppComponent
-import com.example.myapplication.di.DataBaseModule
-import com.example.myapplication.di.DataStoreModule
 
 class App : Application() {
 
@@ -14,8 +12,7 @@ class App : Application() {
         super.onCreate()
         appComponent =
             DaggerAppComponent.builder()
-                .dataBaseModule(DataBaseModule(applicationContext))
-                .dataStoreModule(DataStoreModule(applicationContext))
+                .bindContext(this)
                 .build()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.myapplication.data.repository
 
+import android.app.Application
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -8,8 +9,9 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class DataStoreManager(private val ctx: Context) {
+class DataStoreManager @Inject constructor(private val ctx: Application) {
 
     private val defaultColumnsValue = 2
 
