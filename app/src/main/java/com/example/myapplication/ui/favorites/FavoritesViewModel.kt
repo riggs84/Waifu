@@ -10,8 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FavoritesViewModel @Inject constructor(private val dataBase: IWaifuDataBaseRepository) :
-    ViewModel() {
+class FavoritesViewModel @Inject constructor(
+    private val dataBase: IWaifuDataBaseRepository,
+) : ViewModel() {
 
     private val mutableViewState = MutableLiveData<List<WaifuEntity>>()
     val viewState: LiveData<List<WaifuEntity>> = mutableViewState

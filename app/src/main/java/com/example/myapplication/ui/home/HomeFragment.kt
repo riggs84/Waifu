@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.App
@@ -36,7 +37,7 @@ class HomeFragment : Fragment(), IClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeRecyclerView.apply {
             adapter = rvAdapter
-            layoutManager = GridLayoutManager(activity, 2)
+            layoutManager = GridLayoutManager(activity, viewModel.columnsCountState.value ?: 2)
         }
         registerViewStateObserver()
 
